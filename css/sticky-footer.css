@@ -1,6 +1,16 @@
 /* Sticky footer styles
 -------------------------------------------------- */
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+     /* Margin bottom by footer height */
+     margin-bottom: 60px;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -17,5 +27,5 @@
 
 
 .container .text-muted {
-  margin: 20px 0;
+  margin: 20px;
 }
