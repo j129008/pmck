@@ -17,6 +17,24 @@
       <link rel="icon" href="image/PMCK_logo.jpg">
    </HEAD>
    <BODY class="pmckFont" background="image/Acindstr.gif">
+      <!-- fb sdk for js -->
+      <script>
+         window.fbAsyncInit = function() {
+            FB.init({
+            appId      : '439749989534358',
+            xfbml      : true,
+            version    : 'v2.3'
+            });
+         };
+
+         (function(d, s, id){
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+      </script>
       <nav class="navbar navbar-inverse navbar-fixed-top">
          <div class="container">
             <div class="navbar-header">
