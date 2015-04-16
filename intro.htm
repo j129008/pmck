@@ -15,7 +15,48 @@
       <link href="css/sticky-footer.css" rel="stylesheet">
       <link href="css/pmckOnly.css" rel="stylesheet">
       <link rel="icon" href="image/PMCK_logo.jpg">
-	  <script>
+      <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
+      <script>
+         var imgBlackJack;
+         var stage;
+         var angle;
+
+         function init() {
+           angle = 0;
+           imgBlackJack = new Image();
+           imgBlackJack.onload = handleImageLoad;
+           imgBlackJack.src = "image/blackJack.jpg";
+           
+         }
+
+         function handleImageLoad(){
+            var canvas = document.getElementById("pmckStory");
+            stage = new createjs.Stage(canvas);
+            stage.autoClear = true;
+            bmp = new createjs.Bitmap(imgBlackJack);
+            bmp.regX = imgBlackJack.width >> 1;
+            bmp.regY = imgBlackJack.height >> 1;
+            bmp.x = canvas.width >> 1;
+            bmp.y = canvas.height >> 1;
+            bmp.scaleX = bmp.scaleY = 0.1;
+            stage.addChild(bmp);
+            stage.update();
+
+            createjs.Ticker.timingMode = createjs.Ticker.RAF;
+            createjs.Ticker.addEventListener("tick", tick);
+         }
+
+         function tick(event) {
+            angle += 0.01;
+            var value = Math.sin(angle) * 360;
+
+            bmp.rotation = value;
+            bmp.scaleX = bmp.scaleY = value / 1000;
+            stage.update(event);
+         } 
+                  
+      </script>
+      <script>
          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -25,7 +66,7 @@
          ga('send', 'pageview');
       </script>
    </HEAD>
-   <BODY class="pmckFont" background="image/Acindstr.gif">
+   <BODY class="pmckFont" background="image/Acindstr.gif" onload="init();">
       <nav class="navbar navbar-inverse navbar-fixed-top">
          <div class="container">
             <div class="navbar-header">
@@ -73,7 +114,9 @@
                </font>
                <br>
                <br>
-               <img style="max-width:100%;" src="image/Black_Jack.jpg"></img>
+               <canvas id="pmckStory" width="500" height="300">
+                  alternate content
+               </canvas>
                <br>
                <br>
                <h4>      從小就受到漫畫「怪醫黑傑克」的薰染，常在想……獸醫也有「特種部隊」嗎？！當兵生涯在海軍醫院度過；而海軍的格言是「快、準、穩、狠」卻也符合我的要求，於是「獸醫的特種部隊」在我的內心蘊育著。</h4>
