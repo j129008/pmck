@@ -34,6 +34,10 @@
             stage = new createjs.Stage(canvas);
             stage.autoClear = true;
             bmp = new createjs.Bitmap(imgBlackJack);
+            bmp.scaleX = bmp.scaleY = 0.35;
+            bmp.x = 550;
+
+            /*
             bmp.regX = imgBlackJack.width >> 1;
             bmp.regY = imgBlackJack.height >> 1;
             bmp.x = canvas.width >> 1;
@@ -44,14 +48,17 @@
 
             createjs.Ticker.timingMode = createjs.Ticker.RAF;
             createjs.Ticker.addEventListener("tick", tick);
+            */
+
+            stage.addChild(bmp);
+            stage.update();
+
+            createjs.Ticker.timingMode = createjs.Ticker.RAF;
+            createjs.Ticker.addEventListener("tick", tick);
          }
 
          function tick(event) {
-            angle += 0.01;
-            var value = Math.sin(angle) * 360;
-
-            bmp.rotation = value;
-            bmp.scaleX = bmp.scaleY = value / 1000;
+            if( bmp.x >=0 ) bmp.x -= 3;
             stage.update(event);
          } 
                   
