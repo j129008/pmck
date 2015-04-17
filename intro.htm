@@ -21,7 +21,7 @@
          var stageBlackJack;
          var stageTitle;
          var angle;
-         var title = new createjs.Text("獸醫有「特種部隊」嗎？","30px 微軟正黑體");
+         var title = new createjs.Text("獸醫有「特種部隊」嗎？","40px 微軟正黑體");
 
          function init() {
            angle = 0;
@@ -37,7 +37,7 @@
             stageBlackJack = new createjs.Stage(canvas);
             stageTitle = new createjs.Stage(canvas);
 
-            title.x = 100;
+            title.x = 50;
             title.y = 100;
             stageTitle.addChild(title);
             stageTitle.update();
@@ -53,7 +53,7 @@
 
          function tick(event) {
             if( bmp.x >=0 && (createjs.Ticker.getTicks() > 100) ) {
-               bmp.x -= 3;
+               bmp.x -= 20;
                stageBlackJack.update(event);
             }
          } 
