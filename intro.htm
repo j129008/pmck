@@ -18,8 +18,10 @@
       <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
       <script>
          var imgBlackJack;
-         var stage;
+         var stageBlackJack;
+         var stageTitle;
          var angle;
+         var title = new createjs.Text("獸醫有「特種部隊」嗎？","30px 微軟正黑體");
 
          function init() {
            angle = 0;
@@ -31,35 +33,29 @@
 
          function handleImageLoad(){
             var canvas = document.getElementById("pmckStory");
-            stage = new createjs.Stage(canvas);
-            stage.autoClear = true;
+
+            stageBlackJack = new createjs.Stage(canvas);
+            stageTitle = new createjs.Stage(canvas);
+
+            title.x = 100;
+            title.y = 100;
+            stageTitle.addChild(title);
+            stageTitle.update();
+
             bmp = new createjs.Bitmap(imgBlackJack);
-            bmp.scaleX = bmp.scaleY = 0.35;
+            bmp.scaleX = bmp.scaleY = 1;
             bmp.x = 550;
-
-            /*
-            bmp.regX = imgBlackJack.width >> 1;
-            bmp.regY = imgBlackJack.height >> 1;
-            bmp.x = canvas.width >> 1;
-            bmp.y = canvas.height >> 1;
-            bmp.scaleX = bmp.scaleY = 0.1;
-            stage.addChild(bmp);
-            stage.update();
-
-            createjs.Ticker.timingMode = createjs.Ticker.RAF;
-            createjs.Ticker.addEventListener("tick", tick);
-            */
-
-            stage.addChild(bmp);
-            stage.update();
+            stageBlackJack.addChild(bmp);
 
             createjs.Ticker.timingMode = createjs.Ticker.RAF;
             createjs.Ticker.addEventListener("tick", tick);
          }
 
          function tick(event) {
-            if( bmp.x >=0 ) bmp.x -= 3;
-            stage.update(event);
+            if( bmp.x >=0 && (createjs.Ticker.getTicks() > 100) ) {
+               bmp.x -= 3;
+               stageBlackJack.update(event);
+            }
          } 
                   
       </script>
