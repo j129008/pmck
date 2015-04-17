@@ -33,6 +33,7 @@
 
          function handleImageLoad(){
             var canvas = document.getElementById("pmckStory");
+            canvas.width = window.innerWidth;
 
             stageBlackJack = new createjs.Stage(canvas);
             stageTitle = new createjs.Stage(canvas);
@@ -52,7 +53,7 @@
          }
 
          function tick(event) {
-            if( bmp.x >=0 && (createjs.Ticker.getTicks() > 100) ) {
+            if( bmp.x >=0 && (createjs.Ticker.getTicks() > 120) ) {
                bmp.x -= 20;
                stageBlackJack.update(event);
             }
@@ -117,9 +118,14 @@
                </font>
                <br>
                <br>
-               <canvas id="pmckStory" width="500" height="300">
-                  alternate content
-               </canvas>
+               <div class="hidden-xs">
+                  <canvas id="pmckStory" width="600" height=300>
+                     <img style="max-width:100%;" src="image/Black_Jack.jpg"></img>
+                  </canvas>
+               </div>
+               <div class="visible-xs">
+                     <img style="max-width:100%;" src="image/BlackJack.jpg"></img>
+               </div>
                <br>
                <br>
                <h4>      從小就受到漫畫「怪醫黑傑克」的薰染，常在想……獸醫也有「特種部隊」嗎？！當兵生涯在海軍醫院度過；而海軍的格言是「快、準、穩、狠」卻也符合我的要求，於是「獸醫的特種部隊」在我的內心蘊育著。</h4>
