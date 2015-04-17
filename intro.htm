@@ -27,13 +27,14 @@
            angle = 0;
            imgBlackJack = new Image();
            imgBlackJack.onload = handleImageLoad;
-           imgBlackJack.src = "image/blackJack.jpg";
+           imgBlackJack.src = "image/blackJack_L.jpg";
            
          }
 
          function handleImageLoad(){
             var canvas = document.getElementById("pmckStory");
-            canvas.width = window.innerWidth;
+            canvas.width = 730;
+            canvas.height = 400;
 
             stageBlackJack = new createjs.Stage(canvas);
             stageTitle = new createjs.Stage(canvas);
@@ -120,7 +121,7 @@
                <br>
                <div class="hidden-xs">
                   <canvas id="pmckStory" width="600" height=300>
-                     <img style="max-width:100%;" src="image/Black_Jack.jpg"></img>
+                     <img style="max-width:100%;" src="image/BlackJack_L.jpg"></img>
                   </canvas>
                </div>
                <div class="visible-xs">
