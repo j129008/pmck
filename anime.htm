@@ -17,7 +17,7 @@
       <link rel="icon" href="image/PMCK_logo.jpg">
       <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
       <script>
-         var pmckTable, pmckVet;
+         var pmckTable, pmckVet, pmckDoor;
          var stage0;
          var stageTitle;
          var title = new createjs.Text("Hello Word PMCK!","60px 微軟正黑體");
@@ -26,10 +26,31 @@
            pmckTable = new Image();
            pmckTable.onload = handleImageLoad;
            pmckTable.src = "image/table.png";
+
            pmckVet = new Image();
            pmckVet.onload = handleImageLoad;
            pmckVet.src = "image/vet.png";
+
+           pmckDoor = new Image();
+           pmckDoor.onload = handleImageLoad;
+           pmckDoor.src = "image/door.png";
            
+         }
+
+         function addItem( item, itemStage, x, y ){
+            item.x = x;
+            item.y = y;
+            itemStage.addChild(item);
+            itemStage.update();
+         }
+         
+         function addPicItem( img, x, y, itemStage ){
+            item = new createjs.Bitmap(img);
+            item.scaleX = item.scaleY = 1;
+            item.x = x;
+            item.y = y;
+            itemStage.addChild(item);
+            return item;
          }
 
          function handleImageLoad(){
@@ -40,24 +61,17 @@
             stage0 = new createjs.Stage(canvas);
             stageTitle = new createjs.Stage(canvas);
 
-            title.x = 0;
-            title.y = 160;
-            stageTitle.addChild(title);
-            stageTitle.update();
+            // add title
+            addItem(title, stageTitle, 550, 160);
 
             // add table
-            table = new createjs.Bitmap(pmckTable);
-            table.scaleX = table.scaleY = 1;
-            table.x = 550;
-            table.y = 130;
-            stage0.addChild(table);
+            table = addPicItem(pmckTable, 550, 130, stage0);
 
             // add vet
-            vet = new createjs.Bitmap(pmckVet);
-            vet.scaleX = vet.scaleY = 1;
-            vet.x = 550;
-            vet.y = 130;
-            stage0.addChild(vet);
+            vet = addPicItem(pmckVet, 550, 130, stage0)
+
+            // add door
+            door = addPicItem(pmckDoor, 550, 130, stage0)
 
             createjs.Ticker.timingMode = createjs.Ticker.RAF;
             createjs.Ticker.addEventListener("tick", titleTick);
@@ -65,7 +79,8 @@
          }
 
          function titleTick(event) {
-            if( createjs.Ticker.getTicks() < 120 ) {
+            if( createjs.Ticker.getTicks() < 120  && (title.x > 100)) {
+               title.x -=5;
                stageTitle.update(event);
             }
          } 
