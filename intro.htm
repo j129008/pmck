@@ -39,7 +39,7 @@
             stageBlackJack = new createjs.Stage(canvas);
             stageTitle = new createjs.Stage(canvas);
 
-            title.x = 0;
+            title.x = 550;
             title.y = 160;
             stageTitle.addChild(title);
             stageTitle.update();
@@ -50,11 +50,19 @@
             stageBlackJack.addChild(bmp);
 
             createjs.Ticker.timingMode = createjs.Ticker.RAF;
-            createjs.Ticker.addEventListener("tick", tick);
+            createjs.Ticker.addEventListener("tick", titleTick);
+            createjs.Ticker.addEventListener("tick", blackJackTick);
          }
 
-         function tick(event) {
-            if( bmp.x >=0 && (createjs.Ticker.getTicks() > 120) ) {
+         function titleTick(event) {
+            if( createjs.Ticker.getTicks() < 120 && ( title.x >= 20) ) {
+               title.x -= 20;
+               stageTitle.update(event);
+            }
+         } 
+
+         function blackJackTick(event) {
+            if( createjs.Ticker.getTicks() > 120  && ( bmp.x > 0 ) ) {
                bmp.x -= 20;
                stageBlackJack.update(event);
             }
