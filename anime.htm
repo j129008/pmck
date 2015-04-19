@@ -17,24 +17,47 @@
       <link rel="icon" href="image/PMCK_logo.jpg">
       <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
       <script>
-         var pmckTable, pmckVet, pmckDoor;
+         var pmckTable, pmckVet, pmckDoor, pmckClient, pmckDoorOpen, pmckDog;
          var stage0;
          var stageTitle;
-         var title = new createjs.Text("Hello Word PMCK!","60px 微軟正黑體");
+         var title = new createjs.Text("善意的警告","60px 微軟正黑體");
+         var clientTalk = [
+            "醫生, 他咳得很厲害, 而且懷孕一個月, 這隻狗很貴, 花了我十萬塊買的"
+         ];
+         var doctorTalk = [
+            "可能要打個幾天針, 盡量讓他保持安靜",
+            "若是你沒有給他打抗生素, 要是變成肺炎, 很快就掛了; 而且他也沒有懷孕",
+            "你怎麽不知到他沒有懷孕? 你自己小心一點, 搞不好他會怪你把它狗弄不見"
+         ];
+         var doctorBtalk = [
+         ];
 
          function init() {
-           pmckTable = new Image();
-           pmckTable.onload = handleImageLoad;
-           pmckTable.src = "image/table.png";
+            createjs.Ticker.timingMode = createjs.Ticker.RAF;
 
-           pmckVet = new Image();
-           pmckVet.onload = handleImageLoad;
-           pmckVet.src = "image/vet.png";
+            pmckTable = new Image();
+            pmckTable.onload = handleImageLoad;
+            pmckTable.src = "image/table.png";
 
-           pmckDoor = new Image();
-           pmckDoor.onload = handleImageLoad;
-           pmckDoor.src = "image/door.png";
-           
+            pmckVet = new Image();
+            pmckVet.onload = handleImageLoad;
+            pmckVet.src = "image/vet.png";
+
+            pmckDoor = new Image();
+            pmckDoor.onload = handleImageLoad;
+            pmckDoor.src = "image/door.png";
+
+            pmckClient = new Image();
+            pmckClient.onload = handleImageLoad;
+            pmckClient.src = "image/client.png";
+
+            pmckDoorOpen = new Image();
+            pmckDoorOpen.onload = handleImageLoad;
+            pmckDoorOpen.src = "image/doorOpen.png";
+
+            pmckDog = new Image();
+            pmckDog.onload = handleImageLoad;
+            pmckDog.src = "image/dog.png";
          }
 
          function addItem( item, itemStage, x, y ){
@@ -44,11 +67,13 @@
             itemStage.update();
          }
          
-         function addPicItem( img, x, y, itemStage ){
+         function addPicItem( img, x, y, scaleX, scaleY, itemStage ){
             item = new createjs.Bitmap(img);
-            item.scaleX = item.scaleY = 1;
+            item.scaleX = scaleX;
+            item.scaleY = scaleY;
             item.x = x;
             item.y = y;
+            item.visible = false;
             itemStage.addChild(item);
             return item;
          }
@@ -63,39 +88,67 @@
 
             // add title
             addItem(title, stageTitle, 550, 160);
-
-            // add table
-            table = addPicItem(pmckTable, 550, 130, stage0);
-
-            // add vet
-            vet = addPicItem(pmckVet, 550, 130, stage0)
-
-            // add door
-            door = addPicItem(pmckDoor, 550, 130, stage0)
-
-            createjs.Ticker.timingMode = createjs.Ticker.RAF;
             createjs.Ticker.addEventListener("tick", titleTick);
-            createjs.Ticker.addEventListener("tick", pmckTick);
+
+            /* stage 0  background declare first */
+            // add door
+            door = addPicItem(pmckDoor, 550, 130, 0.5, 0.5, stage0)
+            // add doorOpen
+            doorOpen = addPicItem(pmckDoorOpen, 550, 130, 0.5, 0.5, stage0)
+            // add client
+            client = addPicItem(pmckClient, 545, 115, 0.6 , 0.6, stage0)
+            // add table
+            table = addPicItem(pmckTable, 550, 170, 1, 1, stage0);
+            // add vet
+            vet = addPicItem(pmckVet, 550, 130, 1, 1, stage0)
+            // add dog
+            dog = addPicItem(pmckDog, 230, 200, 1, 1, stage0)
+
+            createjs.Ticker.addEventListener("tick", stage0Tick);
+
          }
 
+         var time = [0, 120] ;
          function titleTick(event) {
-            if( createjs.Ticker.getTicks() < 120  && (title.x > 100)) {
+            if( createjs.Ticker.getTicks() < time[1]  && (title.x > 250)) {
                title.x -=5;
                stageTitle.update(event);
             }
          } 
 
-         function pmckTick(event) {
-            if( createjs.Ticker.getTicks() > 120  && ( table.x > 60 ) ) {
-               table.x -= 20;
+         function stage0Tick(event) {
+            var now = createjs.Ticker.getTicks();
+            if( now > time[1] ){
+               if(table.x > 60 ) {
+                  table.visible = true;
+                  table.x -= 20;
+               }
+
+               if( vet.x > 160 ) {
+                  vet.visible = true;
+                  vet.x -= 5;
+               }
+
+               if( now > time[1]+100 ){
+                  door.visible = true;
+               }
+
+               if( now > time[1]+150 ){
+                  doorOpen.visible = true;
+                  door.visible = false;
+               }
+
+               if( now > time[1]+200  && client.x > 350){
+                  client.visible = true;
+                  client.x --;
+                  client.scaleX = client.scaleY += 0.001;
+               }
+               if( now > time[1]+400){
+                  dog.visible = true;
+               }
+
                stage0.update(event);
             }
-
-            if( createjs.Ticker.getTicks() > 120  && ( vet.x > 160 ) ) {
-               vet.x -= 5;
-               stage0.update(event);
-            }
-
          } 
                   
       </script>
