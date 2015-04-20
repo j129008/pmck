@@ -17,7 +17,7 @@
       <link rel="icon" href="image/PMCK_logo.jpg">
       <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
       <script>
-         var pmckTable, pmckVet, pmckDoor, pmckClient, pmckDoorOpen, pmckDog;
+         var pmckTable, pmckVet, pmckDoor, pmckClient, pmckDoorOpen, pmckDog, pmckTalk;
          var stage0;
          var stageTitle;
          var title = new createjs.Text("善意的警告","60px 微軟正黑體");
@@ -65,6 +65,11 @@
             pmckDog = new Image();
             pmckDog.onload = handleImageLoad;
             pmckDog.src = "image/dog.png";
+
+            pmckTalk = new Image();
+            pmckTalk.onload = handleImageLoad;
+            pmckTalk.src = "image/talk.png";
+
          }
 
          function addItem( item, itemStage, x, y ){
@@ -89,7 +94,7 @@
          function handleImageLoad(){
             var canvas = document.getElementById("pmckStory");
             canvas.width = 730;
-            canvas.height = 400;
+            canvas.height = 450;
 
             stage0 = new createjs.Stage(canvas);
             createjs.Ticker.addEventListener("tick", titleTick);
@@ -120,6 +125,8 @@
                addItem(talk[3], stage0, 0, 0),
                addItem(talk[4], stage0, 0, 0)
             ];
+            // add talk pic
+            talkPic = addPicItem(pmckTalk, 100, 50, 1, 1, stage0);
 
          }
 
@@ -166,13 +173,18 @@
 
                if( now > time[1]+420){
                   talks[0].visible = true;
+                  talkPic.visible =true;
+                  talkPic.x = 300;
+                  talkPic.y = 10;
                }
 
-               if( now > time[1]+500){
+               if( now > time[1]+550){
                   talks[0].visible = false;
                   talks[1].visible = true;
+                  talkPic.visible =true;
+                  talkPic.x = 100;
+                  talkPic.y = 50;
                }
-
 
                stage0.update(event);
             }
@@ -224,7 +236,7 @@
       <br>
       <div class="container-fluid">
          <!-- templete -->
-         <canvas id="pmckStory" width="600" height=300>
+         <canvas id="pmckStory">
             <img style="max-width:100%;" src="image/blackJack_L.jpg"></img>
          </canvas>
       </div>
