@@ -107,7 +107,7 @@
 
             createjs.Ticker.addEventListener("tick", titleTick);
             createjs.Ticker.addEventListener("tick", stage0Tick);
-            createjs.Ticker.addEventListener("tick", stage1Tick);
+            createjs.Ticker.addEventListener("tick", titleTick1);
 
             // add title
             stageTitle = new createjs.Stage(canvas);
@@ -204,11 +204,10 @@
             }
          } 
 
-         function stage1Tick(event){
+         function titleTick1(event){
             var now = createjs.Ticker.getTicks();
             if(now > time[2] ){
                title1.visible = true;
-               // title1.x -=5;
                canvas.style.backgroundColor="black";
                stageTitle1.update(event);
             }
