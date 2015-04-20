@@ -21,15 +21,22 @@
          var stage0;
          var stageTitle;
          var title = new createjs.Text("善意的警告","60px 微軟正黑體");
-         var clientTalk = [
-            "醫生, 他咳得很厲害, 而且懷孕一個月, 這隻狗很貴, 花了我十萬塊買的"
-         ];
-         var doctorTalk = [
+
+         var talkSet = [
+            "醫生, 他咳得很厲害, 而且懷孕一個月, 這隻狗很貴, 花了我十萬塊買的",
             "可能要打個幾天針, 盡量讓他保持安靜",
+            "你給他打抗生素, 飼主是怕會影響到胎兒, 若有影響到胎兒可能會對你不利",
             "若是你沒有給他打抗生素, 要是變成肺炎, 很快就掛了; 而且他也沒有懷孕",
+            "你怎麽知道他沒有懷孕?",
             "你怎麽不知到他沒有懷孕? 你自己小心一點, 搞不好他會怪你把它狗弄不見"
          ];
-         var doctorBtalk = [
+
+         var talk = [
+            new createjs.Text(talkSet[0],"20px 微軟正黑體"),
+            new createjs.Text(talkSet[1],"20px 微軟正黑體"),
+            new createjs.Text(talkSet[2],"20px 微軟正黑體"),
+            new createjs.Text(talkSet[3],"20px 微軟正黑體"),
+            new createjs.Text(talkSet[4],"20px 微軟正黑體")
          ];
 
          function init() {
@@ -64,7 +71,8 @@
             item.x = x;
             item.y = y;
             itemStage.addChild(item);
-            itemStage.update();
+            item.visible = false;
+            return item;
          }
          
          function addPicItem( img, x, y, scaleX, scaleY, itemStage ){
@@ -84,11 +92,12 @@
             canvas.height = 400;
 
             stage0 = new createjs.Stage(canvas);
-            stageTitle = new createjs.Stage(canvas);
+            createjs.Ticker.addEventListener("tick", titleTick);
+            createjs.Ticker.addEventListener("tick", stage0Tick);
 
             // add title
+            stageTitle = new createjs.Stage(canvas);
             addItem(title, stageTitle, 550, 160);
-            createjs.Ticker.addEventListener("tick", titleTick);
 
             /* stage 0  background declare first */
             // add door
@@ -103,14 +112,21 @@
             vet = addPicItem(pmckVet, 550, 130, 1, 1, stage0)
             // add dog
             dog = addPicItem(pmckDog, 230, 200, 1, 1, stage0)
-
-            createjs.Ticker.addEventListener("tick", stage0Tick);
+            // add talk
+            talks = [
+               addItem(talk[0], stage0, 0, 0),
+               addItem(talk[1], stage0, 0, 0),
+               addItem(talk[2], stage0, 0, 0),
+               addItem(talk[3], stage0, 0, 0),
+               addItem(talk[4], stage0, 0, 0)
+            ];
 
          }
 
          var time = [0, 120] ;
          function titleTick(event) {
             if( createjs.Ticker.getTicks() < time[1]  && (title.x > 250)) {
+               title.visible = true;
                title.x -=5;
                stageTitle.update(event);
             }
@@ -143,9 +159,20 @@
                   client.x --;
                   client.scaleX = client.scaleY += 0.001;
                }
+
                if( now > time[1]+400){
                   dog.visible = true;
                }
+
+               if( now > time[1]+420){
+                  talks[0].visible = true;
+               }
+
+               if( now > time[1]+500){
+                  talks[0].visible = false;
+                  talks[1].visible = true;
+               }
+
 
                stage0.update(event);
             }
