@@ -17,14 +17,16 @@
       <link rel="icon" href="image/PMCK_logo.jpg">
       <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
       <script>
-         var pmckTable, pmckVet, pmckDoor, pmckClient, pmckDoorOpen, pmckDog, pmckTalk;
-         var stage0;
-         var stageTitle;
+         var pmckTable, pmckVet, pmckDoor, pmckClient, pmckDoorOpen, pmckDog, pmckTalk, pmckVetWithHand;
+         var stage0, stage1;
+         var stageTitle, stageTitle1;
          var title = new createjs.Text("善意的警告","60px 微軟正黑體");
+         var title1 = new createjs.Text("隔天狗沒有再來了","60px 微軟正黑體", "#FF0000");
+         var canvas;
 
          var talkSet = [
             "醫生, 他咳得很厲害, 而且懷孕一個月, 這隻狗很貴, 花了我十萬塊買的",
-            "可能要打個幾天針, 盡量讓他保持安靜",
+            "可能要打個幾天針, 盡量讓他保持安靜 (摸摸狗的肚子)",
             "你給他打抗生素, 飼主是怕會影響到胎兒, 若有影響到胎兒可能會對你不利",
             "若是你沒有給他打抗生素, 要是變成肺炎, 很快就掛了; 而且他也沒有懷孕",
             "你怎麽知道他沒有懷孕?",
@@ -70,6 +72,10 @@
             pmckTalk.onload = handleImageLoad;
             pmckTalk.src = "image/talk.png";
 
+            pmckVetWithHand = new Image();
+            pmckVetWithHand.onload = handleImageLoad;
+            pmckVetWithHand.src = "image/vetWithHand.png";
+
          }
 
          function addItem( item, itemStage, x, y ){
@@ -92,17 +98,22 @@
          }
 
          function handleImageLoad(){
-            var canvas = document.getElementById("pmckStory");
+            canvas = document.getElementById("pmckStory");
             canvas.width = 730;
-            canvas.height = 450;
+            canvas.height = 400;
 
             stage0 = new createjs.Stage(canvas);
+            stage1 = new createjs.Stage(canvas);
+
             createjs.Ticker.addEventListener("tick", titleTick);
             createjs.Ticker.addEventListener("tick", stage0Tick);
+            createjs.Ticker.addEventListener("tick", stage1Tick);
 
             // add title
             stageTitle = new createjs.Stage(canvas);
+            stageTitle1 = new createjs.Stage(canvas);
             addItem(title, stageTitle, 550, 160);
+            addItem(title1, stageTitle1, 100, 160);
 
             /* stage 0  background declare first */
             // add door
@@ -113,10 +124,10 @@
             client = addPicItem(pmckClient, 545, 115, 0.6 , 0.6, stage0)
             // add table
             table = addPicItem(pmckTable, 550, 170, 1, 1, stage0);
+            // add dog
+            dog = addPicItem(pmckDog, 210, 210, 1, 1, stage0)
             // add vet
             vet = addPicItem(pmckVet, 550, 130, 1, 1, stage0)
-            // add dog
-            dog = addPicItem(pmckDog, 230, 200, 1, 1, stage0)
             // add talk
             talks = [
                addItem(talk[0], stage0, 0, 0),
@@ -128,9 +139,11 @@
             // add talk pic
             talkPic = addPicItem(pmckTalk, 100, 50, 1, 1, stage0);
 
+            vetWithHand = addPicItem(pmckVetWithHand, 160, 130, 1, 1, stage0);
+
          }
 
-         var time = [0, 120] ;
+         var time = [0, 120, 900] ;
          function titleTick(event) {
             if( createjs.Ticker.getTicks() < time[1]  && (title.x > 250)) {
                title.visible = true;
@@ -184,11 +197,23 @@
                   talkPic.visible =true;
                   talkPic.x = 100;
                   talkPic.y = 50;
+                  vetWithHand.visible = true;
                }
 
                stage0.update(event);
             }
          } 
+
+         function stage1Tick(event){
+            var now = createjs.Ticker.getTicks();
+            if(now > time[2] ){
+               title1.visible = true;
+               // title1.x -=5;
+               canvas.style.backgroundColor="black";
+               stageTitle1.update(event);
+            }
+         }
+
                   
       </script>
       <script>
