@@ -19,12 +19,24 @@
       <script src="js/validator.js"></script>
       <script>
          $(document).ready(function(){
-             $("#pmckForm").hide();
+             $("#pmckFormSet").hide();
+             $("#pmckBoss").hide();
+
              $(".jumbotron").mouseleave(function(){
                  $(this).slideUp();
-                 $("#pmckForm").slideDown();
+                 $("#pmckBoss").slideDown();
                  $("#pmckPIC").slideUp();
              });
+
+             $("#pmckBoss").mouseleave(function(){
+                 $(this).slideUp();
+                 $("#pmckFormSet").slideDown();
+             });
+
+             $("#pmckFormSet").click(function(){
+                 $("#FormHint").slideUp();
+             });
+
          });
       </script>
       <!-- google analyze -->
@@ -148,10 +160,82 @@
          <br>
          <br>
       </div>
-      <div class="container-fluid">
-      <br>
-      <br>
-      <br>
+      <div id="pmckBoss">
+         <br>
+         <br>
+         <div class="hidden-xs">
+         <div class="container-fluid">
+            <div class="col-md-3 col-md-offset-1">
+               <!-- portfolio -->
+               <h1>院長 張豪炯 <small>D.V.M.</small></h1>
+               <ul>
+                  <br>
+                  <font size="4">
+                     <li>國立中興大學獸醫學士</li>
+                     <br>
+                     <li>新化畜試所養兔中心研究</li>
+                     <br>
+                     <li>基隆海軍醫院復健科服役</li>
+                     <br>
+                     <li>台北市中心動物醫院實習</li>
+                     <br>
+                     <li>美國佛大小動物臨床結業</li>
+                     <br>
+                     <li>基市第三屆獸醫公會理事長</li>
+                     <br>
+                     <li>基市第五屆獸醫公會理事長</li>
+                     <br>
+                     <li>基市第六屆獸醫公會理事長</li>
+                     <br>
+                     <li>基隆市中興動物醫院院長 </li>
+                  </font>
+               </ul>
+            </div>
+            <br>
+            <div class="col-md-5">
+               <img width="580" src="image/boss.gif"></img>
+            </div>
+         </div>
+         </div>
+         <div class="visible-xs">
+         <div class="container-fluid">
+               <!-- portfolio -->
+               <h1>院長 張豪炯</h1>
+               <ul>
+                  <br>
+                  <font size="4">
+                     <li>國立中興大學獸醫學士</li>
+                     <br>
+                     <li>新化畜試所養兔中心研究</li>
+                     <br>
+                     <li>基隆海軍醫院復健科服役</li>
+                     <br>
+                     <li>台北市中心動物醫院實習</li>
+                     <br>
+                     <li>美國佛大小動物臨床結業</li>
+                     <br>
+                     <li>基市第三屆獸醫公會理事長</li>
+                     <br>
+                     <li>基市第五屆獸醫公會理事長</li>
+                     <br>
+                     <li>基市第六屆獸醫公會理事長</li>
+                     <br>
+                     <li>基隆市中興動物醫院院長 </li>
+                  </font>
+               </ul>
+            <br>
+            <img width="100%" src="image/boss.gif"></img>
+         </div>
+      </div>
+
+      </div>
+      <div id="pmckFormSet" class="container-fluid">
+         <div id="FormHint" class="col-md-offset-1">
+            <strong><h1>寵物疾病線上諮詢</h1></strong>
+            <h4>此醫療諮詢室由本動物醫院資深醫師依 三十年之臨床經驗所設計</h4>
+            <h4>請務必填寫清楚。『如有數種病症』也須填寫，以利寵物醫療諮詢</h4>
+         </div>
+         <hr class="divider">
          <form data-toggle="validator" role="form" id="pmckForm" class="form" method="post" action="http://pmck.comlu.com/pmck.php">
             <div class="col-md-3 col-md-offset-1">
                <div class="form-group">
