@@ -21,16 +21,18 @@
          $(document).ready(function(){
              $("#pmckFormSet").hide();
              $("#pmckBoss").hide();
+             var flag = 0;
 
-             $(".jumbotron").mouseleave(function(){
-                 $(this).slideUp();
-                 $("#pmckBoss").slideDown();
-                 $("#pmckPIC").slideUp();
-             });
-
-             $("#pmckBoss").mouseleave(function(){
-                 $(this).slideUp();
-                 $("#pmckFormSet").slideDown();
+             $("body").mouseleave(function(){
+                 if(flag == 0){
+                    $(".jumbotron").slideUp();
+                    $("#pmckBoss").slideDown();
+                    $("#pmckPIC").slideUp();
+                    flag++;
+                 }else{
+                    $("#pmckBoss").slideUp();
+                    $("#pmckFormSet").slideDown();
+                 }
              });
 
              $("#pmckFormSet").click(function(){
