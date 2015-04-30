@@ -25,14 +25,16 @@
 
              $("body").mouseleave(function(){
                  if(flag == 0){
-                    $(".jumbotron").slideUp();
-                    $("#pmckBoss").slideDown();
-                    $("#pmckPIC").slideUp();
+                    $(".jumbotron").slideUp(1000);
+                    $("#pmckBoss").delay(1000).slideDown(1000);
+                    $("#pmckPIC").slideUp(1000);
                     flag++;
-                 }else{
-                    $("#pmckBoss").slideUp();
-                    $("#pmckFormSet").slideDown();
                  }
+             });
+
+             $("#pmckBoss").mouseleave(function(){
+                 $(this).slideUp();
+                 $("#pmckFormSet").slideDown();
              });
 
              $("#pmckFormSet").click(function(){
